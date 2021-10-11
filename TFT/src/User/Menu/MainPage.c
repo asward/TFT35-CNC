@@ -9,16 +9,13 @@ void menuMain(void)
     LABEL_MAINMENU,
     // icon                          label
     {
-      {ICON_HEAT_FAN,                LABEL_UNIFIEDHEAT},
-      {ICON_HOME_MOVE,               LABEL_UNIFIEDMOVE},
-      #ifdef LOAD_UNLOAD_M701_M702
-        {ICON_EXTRUDE,                 LABEL_LOAD_UNLOAD_SHORT},
-      #else
-        {ICON_EXTRUDE,                 LABEL_EXTRUDE},
-      #endif
-      {ICON_STOP,                    LABEL_EMERGENCYSTOP},
+      {ICON_MOVE,                    LABEL_MOVE},
+      {ICON_HOME,                    LABEL_HOME}, 
       {ICON_GCODE,                   LABEL_TERMINAL},
-      {ICON_CUSTOM,                  LABEL_CUSTOM},
+      {ICON_STOP,                    LABEL_EMERGENCYSTOP},
+
+      {ICON_LASER,                   LABEL_LASER},
+      {ICON_SPINDLE,                 LABEL_SPINDLE},
       {ICON_SETTINGS,                LABEL_SETTINGS},
       {ICON_BACK,                    LABEL_BACK},
     }
@@ -26,11 +23,7 @@ void menuMain(void)
 
   KEY_VALUES key_num = KEY_IDLE;
 
-  if (infoMachineSettings.firmwareType == FW_REPRAPFW)
-  {
-    mainPageItems.items[5].label.index = LABEL_MACROS;
-  }
-
+  // CHANGE 'BACK' TO 'CUT' WITHOUT STATUS SCREEN
   if (infoSettings.status_screen != 1)
   {
     mainPageItems.items[7].icon = ICON_PRINT;
@@ -45,19 +38,15 @@ void menuMain(void)
     switch (key_num)
     {
       case KEY_ICON_0:
-        OPEN_MENU(menuUnifiedHeat);
+        OPEN_MENU(menuMove);
         break;
 
       case KEY_ICON_1:
-        OPEN_MENU(menuUnifiedMove);
+        OPEN_MENU(menuHome);
         break;
 
       case KEY_ICON_2:
-        #ifdef LOAD_UNLOAD_M701_M702
-          OPEN_MENU(menuLoadUnload);
-        #else
-          OPEN_MENU(menuExtrude);
-        #endif
+        OPEN_MENU(menuTerminal);
         break;
 
       case KEY_ICON_3:
@@ -68,19 +57,11 @@ void menuMain(void)
         break;
 
       case KEY_ICON_4:
-        OPEN_MENU(menuTerminal);
+        OPEN_MENU(menuLaser);
         break;
 
       case KEY_ICON_5:
-        if (infoMachineSettings.firmwareType == FW_REPRAPFW)
-        {
-          strcpy(infoFile.title, "Macros");
-          OPEN_MENU(menuCallMacro);
-        }
-        else
-        {
-          OPEN_MENU(menuCustom);
-        }
+        OPEN_MENU(menuSpindle);
         break;
 
       case KEY_ICON_6:
@@ -88,8 +69,9 @@ void menuMain(void)
         break;
 
       case KEY_ICON_7:
+        // OPEN CUT IF NO STATUS SCREEN
         if (infoSettings.status_screen != 1)
-          OPEN_MENU(menuPrint);
+          OPEN_MENU(menuCut);
         else
           CLOSE_MENU();
         break;
