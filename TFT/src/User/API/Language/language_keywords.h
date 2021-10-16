@@ -183,6 +183,8 @@ extern "C" {
 
 #define LANG_KEY_START_PRINT                  "label_start_print:"
 #define LANG_KEY_STOP_PRINT                   "label_stop_print:"
+#define LANG_KEY_START_CUT                  "label_start_cut:"
+#define LANG_KEY_STOP_CUT                   "label_stop_cut:"
 #define LANG_KEY_IS_PAUSE                     "label_is_pause:"
 #define LANG_KEY_M0_PAUSE                     "label_m0_pause:"
 
@@ -250,6 +252,9 @@ extern "C" {
 #define LANG_KEY_MOVE                         "label_move:"
 #define LANG_KEY_HOME                         "label_home:"
 #define LANG_KEY_PRINT                        "label_print:"
+#define LANG_KEY_CUT                          "label_cut:"
+#define LANG_KEY_LASER                          "label_laser:"
+#define LANG_KEY_SPINDLE                          "label_spindle:"
 #define LANG_KEY_EXTRUDE                      "label_extrude:"
 #define LANG_KEY_SETTINGS                     "label_settings:"
 #define LANG_KEY_SCREEN_SETTINGS              "label_screen_settings:"

@@ -176,6 +176,8 @@
 
     #define STRING_START_PRINT            "Start Printing:\n%s?"
     #define STRING_STOP_PRINT             "Stop printing?"
+    #define STRING_START_CUT           "Start Cut:\n%s?"
+    #define STRING_STOP_CUT             "Stop Cut?"
     #define STRING_IS_PAUSE               "Action not allowed while printing.\n\nPause printing?"
     #define STRING_M0_PAUSE               "Paused by M0 command"
 
