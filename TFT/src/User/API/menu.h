@@ -53,6 +53,8 @@ typedef enum
   KEY_IDLE     = IDLE_TOUCH,
 } KEY_VALUES;
 
+#define IS_KEY_ICON(key_num) (KEY_ICON_0 <= key_num && KEY_ICON_7 <= key_num)
+
 typedef enum
 {
   PS_KEY_0 = 0,
@@ -92,6 +94,7 @@ typedef struct
 {
   uint16_t icon;
   LABEL label;
+  void (*handler)(void);
 } ITEM;
 
 typedef struct
@@ -195,6 +198,7 @@ void menuRefreshListPage(void);
 void menuDrawTitle(const uint8_t *content);  //(const MENUITEMS * menuItems);
 void menuReDrawCurTitle(void);
 void menuDrawPage(const MENUITEMS * menuItems);
+KEY_VALUES menuRunItemDefaultHandler();
 void menuDrawListPage(const LISTITEMS *listItems);
 
 void showLiveInfo(uint8_t index, const LIVE_INFO * liveicon, const ITEM * item);

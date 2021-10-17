@@ -625,6 +625,7 @@ void menuDrawPage(const MENUITEMS *menuItems)
   #endif
 }
 
+
 // Draw the entire interface
 void menuDrawListPage(const LISTITEMS *listItems)
 {
@@ -869,6 +870,15 @@ KEY_VALUES menuKeyGetValue(void)
   #endif
 
   return tempkey;
+}
+
+KEY_VALUES menuRunItemDefaultHandler(){
+    KEY_VALUES key_num = menuKeyGetValue();
+
+    if(IS_KEY_ICON(key_num) && curMenuItems->items[key_num].handler != 0){
+      curMenuItems->items[key_num].handler();
+    }
+    return key_num;
 }
 
 // Smart home (long press on back button to go to status screen)

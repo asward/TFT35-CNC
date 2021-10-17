@@ -5,6 +5,8 @@
 extern "C" {
 #endif
 
+#define LASER_ITEM  {ICON_LASER, LABEL_LASER,laserHandler}
+void laserHandler(void);
 void menuLaser(void);
 
 #ifdef __cplusplus

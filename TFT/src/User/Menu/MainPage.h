@@ -4,7 +4,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+#define MAINMENU_ITEM {ICON_MAINMENU, LABEL_MAINMENU,mainHandler}
+void mainHandler(void);
 void menuMain(void);
 
 #ifdef __cplusplus

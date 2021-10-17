@@ -13,9 +13,13 @@ const MENUITEMS spindleItems = {
     // {ICON_BACKGROUND,              LABEL_BACKGROUND},
     // {ICON_BACKGROUND,              LABEL_BACKGROUND},
     // {ICON_BACKGROUND,              LABEL_BACKGROUND},
-    {ICON_BACK,                    LABEL_BACK},
+    [KEY_ICON_7]=BACK_ITEM,
   }
 };
+void spindleHandler(void){
+
+};
+
 
 void menuSpindle(void)
 {
