@@ -4,9 +4,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+#include "menu.h"
 void menuMove(void);
-
+extern ITEM moveMenuItem;
 #ifdef __cplusplus
 }
 #endif

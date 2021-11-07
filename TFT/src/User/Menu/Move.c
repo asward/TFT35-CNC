@@ -183,3 +183,8 @@ void menuMove(void)
 
   mustStoreCmd("G90\n");
 }
+
+void moveHandler(KEY_VALUES selectedItem){
+  OPEN_MENU(menuMove);
+}
+ITEM moveMenuItem = {ICON_MOVE, LABEL_MOVE, moveHandler};

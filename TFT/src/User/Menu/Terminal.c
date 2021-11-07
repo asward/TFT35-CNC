@@ -885,3 +885,7 @@ void menuTerminal(void)
       menuTerminalWindow();
   }
 }
+void menuTeminalHandler(KEY_VALUES selectedItem){
+  OPEN_MENU(menuTerminal);
+}
+ITEM terminalMenuItem = {ICON_GCODE, LABEL_TERMINAL, menuTeminalHandler};

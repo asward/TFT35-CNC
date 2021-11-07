@@ -1,12 +1,15 @@
 #ifndef _MAINPAGE_H_
 #define _MAINPAGE_H_
 
+#include "menu.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-#define MAINMENU_ITEM {ICON_MAINMENU, LABEL_MAINMENU,mainHandler}
-void mainHandler(void);
+
+
 void menuMain(void);
+extern ITEM mainMenuItem;
 
 #ifdef __cplusplus
 }

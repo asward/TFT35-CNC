@@ -4,9 +4,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#include "menu.h"
 
 void menuHome(void);
-
+extern ITEM homeMenuItem;
 #ifdef __cplusplus
 }
 #endif

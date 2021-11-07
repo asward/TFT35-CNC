@@ -247,7 +247,7 @@
     #define STRING_PRINT                  "Print"
     #define STRING_CUT                    "Cut"
     #define STRING_LASER                  "Laser"
-    #define STRING_SPINDLE                 "Spindle"
+    #define STRING_SPINDLE                "Spindle"
     #define STRING_EXTRUDE                "Extrude"
     #define STRING_SETTINGS               "Settings"
     #define STRING_SCREEN_SETTINGS        "Screen"

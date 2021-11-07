@@ -39,3 +39,7 @@ void menuHome(void)
     loopProcess();
   }
 }
+void homeHandler(KEY_VALUES selectedSetting){
+  OPEN_MENU(menuHome);
+}
+ITEM homeMenuItem = {ICON_HOME,LABEL_HOME,homeHandler};

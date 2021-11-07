@@ -53,7 +53,7 @@ typedef enum
   KEY_IDLE     = IDLE_TOUCH,
 } KEY_VALUES;
 
-#define IS_KEY_ICON(key_num) (KEY_ICON_0 <= key_num && KEY_ICON_7 <= key_num)
+#define IS_KEY_ICON(key_num) (KEY_ICON_0 == key_num || KEY_ICON_1 == key_num|| KEY_ICON_2 == key_num|| KEY_ICON_3 == key_num|| KEY_ICON_4 == key_num|| KEY_ICON_5 == key_num|| KEY_ICON_6 == key_num|| KEY_ICON_7 == key_num)
 
 typedef enum
 {
@@ -94,7 +94,7 @@ typedef struct
 {
   uint16_t icon;
   LABEL label;
-  void (*handler)(void);
+  void (*handler)(KEY_VALUES selectedItem);
 } ITEM;
 
 typedef struct
@@ -102,6 +102,7 @@ typedef struct
   LABEL title;
   ITEM  items[ITEM_PER_PAGE];
 } MENUITEMS;
+ 
 
 typedef enum
 {

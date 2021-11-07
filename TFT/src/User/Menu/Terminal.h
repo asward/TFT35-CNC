@@ -7,7 +7,7 @@ extern "C" {
 
 #include <stdint.h>
 #include "SerialConnection.h"
-
+#include "menu.h"
 typedef enum
 {
   TERMINAL_GCODE = 0,
@@ -17,7 +17,7 @@ typedef enum
 
 void menuTerminal(void);
 void terminalCache(const char * stream, uint16_t streamLen, SERIAL_PORT_INDEX portIndex, TERMINAL_SRC src);
-
+extern ITEM terminalMenuItem;
 #ifdef __cplusplus
 }
 #endif

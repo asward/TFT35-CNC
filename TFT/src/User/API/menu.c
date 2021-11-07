@@ -874,9 +874,9 @@ KEY_VALUES menuKeyGetValue(void)
 
 KEY_VALUES menuRunItemDefaultHandler(){
     KEY_VALUES key_num = menuKeyGetValue();
-
-    if(IS_KEY_ICON(key_num) && curMenuItems->items[key_num].handler != 0){
-      curMenuItems->items[key_num].handler();
+    
+    if(IS_KEY_ICON(key_num) && getCurMenuItems()->items[key_num].handler != 0){
+      getCurMenuItems()->items[key_num].handler(key_num);
     }
     return key_num;
 }

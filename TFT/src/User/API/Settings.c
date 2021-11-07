@@ -315,3 +315,7 @@ bool getFlashSignStatus(int index)
   W25Qxx_ReadBuffer((uint8_t*)&cur_flash_sign, addr, len);
   return (flash_sign[index] == cur_flash_sign[index]);
 }
+void settingsMenuHandler(KEY_VALUES selectedItem){
+  OPEN_MENU(menuSettings);
+}
+ITEM settingsMenuItem = {ICON_SETTINGS,LABEL_SETTINGS,settingsMenuHandler};

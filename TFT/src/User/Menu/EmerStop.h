@@ -1,14 +1,13 @@
 #ifndef _EMER_STOP_H
 #define _EMER_STOP_H
-
+#include "menu.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define EMERSTOP_ITEM  {ICON_STOP, LABEL_EMERGENCYSTOP,emerStopHandler}
 
 void emerStopHandler(void);
-
+extern ITEM emerStopItem;
 #ifdef __cplusplus
 }
 #endif

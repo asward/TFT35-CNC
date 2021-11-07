@@ -9,6 +9,7 @@ extern "C" {
 #include <stdint.h>
 #include "variants.h"
 #include "coordinate.h"
+#include "menu.h"
 
 // Config version support
 // change if new elements/keywords are added/removed/changed in the configuration.h Format YYYYMMDD
@@ -364,7 +365,7 @@ void setupMachine(FW_TYPE fwType);
 float flashUsedPercentage(void);
 void checkflashSign(void);
 bool getFlashSignStatus(int index);
-
+extern ITEM settingsMenuItem;
 #ifdef __cplusplus
 }
 #endif
