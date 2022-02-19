@@ -13,13 +13,10 @@ void menuSpindle(void)
 
   initDefaultMenu(&spindleItems, LABEL_SPINDLE, true);
 
-  KEY_VALUES key_num = KEY_IDLE;
-
   menuDrawPage(&spindleItems);
 
   while (MENU_IS(menuSpindle))
-  {
-    key_num = menuRunItemDefaultHandler();
+  {menuRunItemDefaultHandler();
     loopProcess();
   }
 }

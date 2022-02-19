@@ -200,7 +200,7 @@ bool powerFailedGetData(void)
 
     if (infoBreakPoint.relative_e == false)  // infoCacheCmd.queue[18]
     {
-      mustStoreCacheCmd("M82\n");
+      mustStoreCacheCmd("M82\n"); //TODO disable for non-extruder installs
     }
 
     // infoCacheCmd.queue[19]  max length = 0 - 19.

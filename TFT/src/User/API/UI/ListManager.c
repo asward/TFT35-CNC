@@ -13,9 +13,36 @@ static uint8_t maxPageCount;
 static uint16_t curPageIndex;
 static uint16_t * curPageIndexSource;
 static bool handleBack = true;
+static void (*action_back)() = NULL;
+static void (*action_selectedItem)(LISTITEM * item, uint16_t index, uint8_t itemPos) = NULL;
 
 static void (*action_preparePage)(LISTITEMS * listItems, uint8_t index) = NULL;
 static void (*action_prepareItem)(LISTITEM * item, uint16_t index, uint8_t itemPos) = NULL;
+
+/**
+ * @brief Set and innitialize list menu
+ *
+ * @param title Title of menu
+ * @param items Preset list of items. Set to NUll if not used.
+ * @param maxItems Maximum number of items possilbe in current list.
+ * @param curPage Display this page index.
+ * @param back_action Pointer to function to execute on back button press.
+ * @param selectedItem_action Pointer to function to execute on item in list selected.
+ * @param preparePage_action Pointer to function to execute for preparing page before display. Set to NULL if not used.
+ * @param prepareItem_action Pointer to function to execute for preparing item before display. Set to NULL if not used.
+ */
+void listViewCreateWithHandlers(LABEL title, 
+                    LISTITEM * items, 
+                    uint16_t maxItems, 
+                    uint16_t * curPage, 
+                    void (*back_action)(void),
+                    void (*selectedItem_action)(LISTITEM * item, uint16_t index, uint8_t itemPos),
+                    void (*preparePage_action)(LISTITEMS * listItems, uint8_t pageIndex),
+                    void (*prepareItem_action)(LISTITEM * item, uint16_t index, uint8_t itemPos)){
+  listViewCreate(title,items,maxItems,curPage,false,preparePage_action,prepareItem_action); 
+  action_back = back_action;
+  action_selectedItem = selectedItem_action;
+}
 
 /**
  * @brief Set and innitialize list menu
@@ -40,7 +67,8 @@ void listViewCreate(LABEL title, LISTITEM * items, uint16_t maxItems, uint16_t *
   action_preparePage = preparePage_action;
   action_prepareItem = prepareItem_action;
   curPageIndexSource = curPage;
-
+  action_back = NULL;
+  action_selectedItem = NULL;
   if (curPage != NULL)
     curPageIndex = *curPage;
   else
@@ -183,10 +211,16 @@ uint16_t listViewGetSelectedIndex(void)
 
     if (cur_index < maxItemCount)
     {
-      if (totalItems[cur_index].icon != CHARICON_BACKGROUND)
+      if (totalItems[cur_index].icon != CHARICON_BACKGROUND){
+        if(action_selectedItem !=0){
+          action_selectedItem(&listItems.items[cur_index], cur_index, key_num);
+        }
         return cur_index;
-      else
+      }
+      else{
         return KEY_IDLE;
+      }
+        
     }
   }
 
@@ -204,8 +238,12 @@ uint16_t listViewGetSelectedIndex(void)
       return KEY_PAGEDOWN;
 
     case KEY_INDEX_BACK:
-      if (handleBack)
+      if (handleBack){
         CLOSE_MENU();
+      }else if(action_back !=0){
+        action_back();
+      }
+        
       return KEY_BACK;
 
     default:

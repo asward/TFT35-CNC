@@ -75,7 +75,7 @@ void laserMenuHandler(KEY_VALUES selectedItem){
    OPEN_MENU(menuLaser);
 }
 
-ITEM laserMenuItem = {ICON_LASER, LABEL_BACKGROUND, laserMenuHandler};
+ITEM laserMenuItem = {ICON_LASER, LABEL_LASER, laserMenuHandler};
 ITEM laserPowerUp5Item = {ICON_INC, "+5%", laserPowerUp5Handler};
 ITEM laserPowerDown5Item = {ICON_DEC, "-5%", laserPowerDown5Handler};
 
@@ -90,13 +90,11 @@ void menuLaser(void)
   laserItems.items[KEY_ICON_3] = laserPowerDown5Item;
   laserItems.items[KEY_ICON_4] = laserOnOffToggleItem;
 
-  KEY_VALUES key_num = KEY_IDLE;
-
   menuDrawPage(&laserItems);
 
   while (MENU_IS(menuLaser))
   {
-    key_num = menuRunItemDefaultHandler();
+    menuRunItemDefaultHandler();
 
     loopProcess();
   }

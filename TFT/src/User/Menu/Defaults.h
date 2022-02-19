@@ -8,8 +8,8 @@ extern "C" {
 
 extern ITEM backItem;
 void initDefaultMenu(MENUITEMS *menuItems, int32_t title, bool backButton);
-void backHandler(void);
-void emptyHandler(void);
+void backHandler(KEY_VALUES selectedKey);
+void emptyHandler(KEY_VALUES selectedKey);
 
 #ifdef __cplusplus
 }

@@ -8,8 +8,20 @@ extern "C" {
 #include <stdbool.h>
 #include <stdint.h>
 #include "menu.h"
+void listViewCreateWithHandlers(LABEL title, 
+                    LISTITEM * items, 
+                    uint16_t maxItems, 
+                    uint16_t * curPage, 
+                    void (*back_action)(void),
+                    void (*selectedItem_action)(LISTITEM * item, uint16_t index, uint8_t itemPos),
+                    void (*preparePage_action)(LISTITEMS * listItems, uint8_t pageIndex),
+                    void (*prepareItem_action)(LISTITEM * item, uint16_t index, uint8_t itemPos));
 
-void listViewCreate(LABEL title, LISTITEM * items, uint16_t max_items, uint16_t * cur_page, bool handleBackPress,
+void listViewCreate(LABEL title, 
+                    LISTITEM * items, 
+                    uint16_t max_items, 
+                    uint16_t * cur_page, 
+                    bool handleBackPress,
                     void (*preparePage_action)(LISTITEMS * listItems, uint8_t pageIndex),
                     void (*prepareItem_action)(LISTITEM * item, uint16_t index, uint8_t itemPos));
 

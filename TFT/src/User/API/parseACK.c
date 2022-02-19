@@ -405,9 +405,10 @@ void parseACK(void)
       // parse error information even though not connected to printer
       if (ack_seen(magic_error)) ackPopupInfo(magic_error);
 
-      // the first response should be such as "T:25/50\n"
-      if (!(ack_seen("@") && ack_seen("T:")) && !ack_seen("T0:")) goto parse_end;
+      //If we don't see ok response, we're still not connected - goto parse end
+      if(!ack_seen("ok"))  goto parse_end;  
 
+      // 'ok' seen, initialize connection
       // find hotend count and setup heaters
       uint8_t i;
       for (i = NOZZLE0; i < MAX_HOTEND_COUNT; i++)
@@ -434,6 +435,7 @@ void parseACK(void)
         storeCmd("M211\n");  // retrieve the software endstops state
         storeCmd("M115\n");  // as last command to identify the FW type!
       }
+      BUZZER_PLAY(SOUND_NOTIFY);
 
       infoHost.connected = true;
       requestCommandInfo.inJson = false;

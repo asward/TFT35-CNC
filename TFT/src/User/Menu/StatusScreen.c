@@ -1,38 +1,22 @@
 #include "StatusScreen.h"
 #include "includes.h"
-
-#ifdef TFT70_V3_0
-  #define KEY_SPEEDMENU         KEY_ICON_3
-  #define KEY_FLOWMENU          (KEY_SPEEDMENU + 1)
-  #define KEY_MAINMENU          (KEY_FLOWMENU + 1)
-  #define SET_SPEEDMENUINDEX(x) setSpeedItemIndex(x)
-#else
-  #define KEY_SPEEDMENU         KEY_ICON_3
-  #define KEY_MAINMENU          (KEY_SPEEDMENU + 1)
-  #define SET_SPEEDMENUINDEX(x)
-#endif
-
-#define UPDATE_TOOL_TIME 2000  // 1 seconds is 1000
-
-const ITEM SpeedItem = {ICON_STATUS_SPEED,            LABEL_BACKGROUND};
-
-
+#define UPDATE_TOOL_TIME 2000
 static int8_t lastConnection_status = -1;
 static bool msgNeedRefresh = false;
 
 static char msgtitle[20];
 static char msgbody[MAX_MSG_LENGTH];
 
-// // const char *const SpeedID[2] = SPEED_ID;
-// // text position rectangles for Live icons
-// // icon 0
-// const GUI_POINT ss_title_point = {SSICON_WIDTH - BYTE_WIDTH / 2, SSICON_NAME_Y0};
-// const GUI_POINT ss_val_point   = {SSICON_WIDTH / 2, SSICON_VAL_Y0};
-// #ifdef TFT70_V3_0
-//   const GUI_POINT ss_val2_point = {SSICON_WIDTH/2, SSICON_VAL2_Y0};
-// #endif
+// // // const char *const SpeedID[2] = SPEED_ID;
+// // // text position rectangles for Live icons
+// // // icon 0
+const GUI_POINT ss_title_point = {SSICON_WIDTH - BYTE_WIDTH / 2, SSICON_NAME_Y0};
+const GUI_POINT ss_val_point   = {SSICON_WIDTH / 2, SSICON_VAL_Y0};
+// // #ifdef TFT70_V3_0
+// //   const GUI_POINT ss_val2_point = {SSICON_WIDTH/2, SSICON_VAL2_Y0};
+// // #endif
 
-// info box msg area
+// // info box msg area
 const  GUI_RECT msgRect = {START_X + 1 * ICON_WIDTH + 1 * SPACE_X + 2,   ICON_START_Y +  1 * ICON_HEIGHT + 1 * SPACE_Y + STATUS_MSG_BODY_YOFFSET,
                            START_X + 3 * ICON_WIDTH + 2 * SPACE_X - 2,   ICON_START_Y +  2 * ICON_HEIGHT + 1 * SPACE_Y - STATUS_MSG_BODY_BOTTOM};
 
@@ -113,45 +97,44 @@ static inline void toggleTool(void)
 {
   if (nextScreenUpdate(UPDATE_TOOL_TIME))
   {
-    // increment hotend index
-    if (infoSettings.hotend_count > 1)
-      currentTool = (currentTool + 1) % infoSettings.hotend_count;
+    // // increment hotend index
+    // if (infoSettings.hotend_count > 1)
+    //   currentTool = (currentTool + 1) % infoSettings.hotend_count;
 
-    // switch bed/chamber index
-    if (infoSettings.chamber_en == 1)
-      currentBCIndex = (currentBCIndex + 1) % 2;
+    // // switch bed/chamber index
+    // if (infoSettings.chamber_en == 1)
+    //   currentBCIndex = (currentBCIndex + 1) % 2;
 
-    // increment fan index
-    if ((infoSettings.fan_count + infoSettings.ctrl_fan_en) > 1)
-    {
-      do
-      {
-        currentFan = (currentFan + 1) % MAX_FAN_COUNT;
-      } while (!fanIsValid(currentFan));
-    }
+    // // increment fan index
+    // if ((infoSettings.fan_count + infoSettings.ctrl_fan_en) > 1)
+    // {
+    //   do
+    //   {
+    //     currentFan = (currentFan + 1) % MAX_FAN_COUNT;
+    //   } while (!fanIsValid(currentFan));
+    // }
 
-    // switch speed/flow
-    currentSpeedID = (currentSpeedID + 1) % 2;
+    // // switch speed/flow
+    // currentSpeedID = (currentSpeedID + 1) % 2;
     drawStatus();
 
     // gcode queries must be call after drawStatus
     coordinateQuery(UPDATE_TOOL_TIME / 1000);
-    speedQuery();
-    ctrlFanQuery();
+    // speedQuery();
+    // ctrlFanQuery();
   }
 }
 
-void menuBefore(MENUITEMS *statusItems){
+void menuBefore(MENUITEMS *menuItems){
 
   GUI_SetBkColor(infoSettings.bg_color);
-  menuDrawPage(statusItems);
+  menuDrawPage(menuItems);
   GUI_SetColor(infoSettings.status_xyz_bg_color);
   GUI_FillPrect(&RecGantry);
   drawStatus();
   drawStatusScreenMsg();
 }
 void menuAfter(void){
-
   // disable position auto report
   coordinateQuery(0);
 }
@@ -160,15 +143,19 @@ void menuStatus(void)
   
   MENUITEMS statusItems;
 
-  initDefaultMenu(&statusItems, LABEL_LASER, false);
+  initDefaultMenu(&statusItems, LABEL_STATUS, false);
   
-  statusItems.items[KEY_ICON_0] = laserMenuItem;
-  statusItems.items[KEY_ICON_1] = spindleMenuItem;
-  statusItems.items[KEY_ICON_4] = mainMenuItem;
+  statusItems.items[KEY_ICON_0] = runMenuItem; //RUN
+  statusItems.items[KEY_ICON_1] = moveMenuItem; //MOVE
+  statusItems.items[KEY_ICON_2] = homeMenuItem; //HOME
+  statusItems.items[KEY_ICON_3] = emerStopItem ; //EMER STOP
+
+  statusItems.items[KEY_ICON_4] = terminalMenuItem ; //TERMINAL
+  // statusItems.items[KEY_ICON_5] = //STATUS BLOCK
+  // statusItems.items[KEY_ICON_6] = //STATUS BLOCK
+  statusItems.items[KEY_ICON_7] = mainMenuItem; //Main Menu
 
   menuBefore(&statusItems);
-
-  KEY_VALUES key_num = KEY_IDLE;
 
   while (MENU_IS(menuStatus))
   {
@@ -183,7 +170,7 @@ void menuStatus(void)
 
     scrollMsg();
 
-    key_num = menuRunItemDefaultHandler();
+    menuRunItemDefaultHandler();
 
     toggleTool();
     loopProcess();

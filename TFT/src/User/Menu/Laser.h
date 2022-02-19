@@ -9,7 +9,7 @@ extern "C" {
 
 void menuLaser(void);
 void laserMenuHandler(KEY_VALUES selectedItem);
-extern ITEM laserMenuItem ;//= {ICON_LASER, LABEL_BACKGROUND, laserMenuHandler};
+extern ITEM laserMenuItem ;
 
 #ifdef __cplusplus
 }

@@ -360,6 +360,16 @@ void menuDrawIconText(const ITEM *item, uint8_t position)
     GUI_DispStringInPrect(rect, content);
 }
 
+void menuDrawIconTextStr(uint8_t *content, int position)
+{
+  const GUI_RECT* rect = &rect_of_key[KEY_LABEL_0 + position];
+
+  GUI_ClearPrect(rect);
+  GUI_SetRange(rect->x0, rect->y0, rect->x1, rect->y1);
+  GUI_DispStringInPrect(rect, content);
+  GUI_CancelRange();
+}
+
 void menuDrawListItem(const LISTITEM *item, uint8_t position)
 {
   const GUI_RECT *rect = rect_of_keyListView + position;

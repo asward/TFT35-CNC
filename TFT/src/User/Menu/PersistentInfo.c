@@ -4,6 +4,7 @@
 // check current menu to avoid display info
 bool temperatureStatusValid(void)
 {
+  if (!(infoSettings.hotend_count + infoSettings.bed_en + infoSettings.chamber_en)) return false;
   if (infoSettings.persistent_info != 1) return false;
   if (infoHost.connected == false) return false;
   if (toastRunning()) return false;

@@ -9,24 +9,23 @@ void mainHandler(KEY_VALUES selectedItem){
 void menuMain(void)
 {
   MENUITEMS mainPageItems;
-
   initDefaultMenu(&mainPageItems, LABEL_MAINMENU, infoSettings.status_screen == 1);
   
-  mainPageItems.items[KEY_ICON_0] = moveMenuItem; //MOVE
-  mainPageItems.items[KEY_ICON_1] = homeMenuItem; //HOME
-  mainPageItems.items[KEY_ICON_2] = terminalMenuItem; //TERMINAL
+  mainPageItems.items[KEY_ICON_0] = runMenuItem; //RUN
+  mainPageItems.items[KEY_ICON_1] = moveMenuItem; //MOVE
+  mainPageItems.items[KEY_ICON_2] = homeMenuItem; //HOME
   mainPageItems.items[KEY_ICON_3] = emerStopItem ; //EMER STOP
-  mainPageItems.items[KEY_ICON_4] = laserMenuItem; //LASER
-  mainPageItems.items[KEY_ICON_5] = spindleMenuItem; //SPINDLE
-  mainPageItems.items[KEY_ICON_6] = settingsMenuItem; //SETTINGS
- 
-  KEY_VALUES key_num = KEY_IDLE;
 
+  mainPageItems.items[KEY_ICON_4] = settingsMenuItem; //SETTINGS
+  mainPageItems.items[KEY_ICON_5] = laserMenuItem; //LASER
+  mainPageItems.items[KEY_ICON_6] = spindleMenuItem; //SPINDLE
+  // mainPageItems.items[KEY_ICON_7] = backItem; //BACK
+
+ 
   menuDrawPage(&mainPageItems);
 
   while (MENU_IS(menuMain))
-  {
-    key_num = menuRunItemDefaultHandler();
+  {menuRunItemDefaultHandler();
 
     loopProcess();
   }

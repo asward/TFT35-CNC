@@ -7,6 +7,8 @@ extern "C" {
 
 #include "Settings.h"
 #include "menu.h"
+#include "ui_draw.h"
+#include "boot.h"
 
 #define ITEM_DEGREE_NUM         3
 #define ITEM_SPEED_NUM          3
@@ -15,6 +17,40 @@ extern "C" {
 #define ITEM_FINE_MOVE_LEN_NUM  3
 #define ITEM_EXT_LEN_NUM        5
 #define ITEM_TOGGLE_NUM         2
+
+#define PROGRESS_BAR_RAW_X0 (START_X)                             // X0 aligned to first icon
+#define PROGRESS_BAR_RAW_X1 (START_X + 4*ICON_WIDTH + 3*SPACE_X)  // X1 aligned to last icon
+
+#ifdef MARKED_PROGRESS_BAR
+  #define PROGRESS_BAR_DELTA_X ((PROGRESS_BAR_RAW_X1 - PROGRESS_BAR_RAW_X0) % 10)  // use marked progress bar. Width rounding factor multiple of 10 slices
+#else
+  #define PROGRESS_BAR_DELTA_X 2                                                   // use standard progress bar. Reserve a 2 pixels width for vertical borders
+#endif
+
+// progress bar rounded and aligned to center of icons
+#define PROGRESS_BAR_X0          (PROGRESS_BAR_RAW_X0 + PROGRESS_BAR_DELTA_X - PROGRESS_BAR_DELTA_X / 2)
+#define PROGRESS_BAR_X1          (PROGRESS_BAR_RAW_X1 - PROGRESS_BAR_DELTA_X / 2)
+
+#define PROGRESS_BAR_FULL_WIDTH  (PROGRESS_BAR_X1 - PROGRESS_BAR_X0)  // 100% progress bar width
+#define PROGRESS_BAR_SLICE_WIDTH (PROGRESS_BAR_FULL_WIDTH / 10)       // 10% progress bar width
+
+#ifdef UNIFORM_LIVE_TEXT_BG_COLOR
+  uint16_t textBgColor;
+#endif
+
+enum
+{
+  PRINT_ICON = (1 << 0),
+  PRINT_TOP_ROW = (1 << 1),
+  PRINT_BOTTOM_ROW = (1 << 2),
+};
+
+extern const GUI_RECT printinfo_val_rect[6] ;
+extern const GUI_RECT progressBar ;
+extern const uint8_t printingIcon[];
+extern const uint8_t printingIcon2nd[] ;
+extern const char *const speedId[2];
+extern bool hasFilamentData;
 
 typedef enum
 {

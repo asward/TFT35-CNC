@@ -6,7 +6,7 @@ extern "C" {
 #endif
 
 
-void emerStopHandler(void);
+void emerStopHandler(KEY_VALUES selectedKey);
 extern ITEM emerStopItem;
 #ifdef __cplusplus
 }

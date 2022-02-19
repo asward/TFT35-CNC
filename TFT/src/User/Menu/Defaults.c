@@ -1,30 +1,15 @@
 #include "Defaults.h"
 #include "includes.h"
 
-ITEM backItem = {ICON_BACK, LABEL_BACK, backHandler};
 
-static const MENUITEMS EMPTY_MENU = {
-  .title = LABEL_BACKGROUND,
-  .items = {    
-    {ICON_BACKGROUND, LABEL_BACKGROUND},
-    {ICON_BACKGROUND, LABEL_BACKGROUND},
-    {ICON_BACKGROUND, LABEL_BACKGROUND},
-    {ICON_BACKGROUND, LABEL_BACKGROUND},
-
-    {ICON_BACKGROUND, LABEL_BACKGROUND},
-    {ICON_BACKGROUND, LABEL_BACKGROUND},
-    {ICON_BACKGROUND, LABEL_BACKGROUND},
-    {ICON_BACKGROUND, LABEL_BACKGROUND}
-    // {ICON_BACK, LABEL_BACK,backHandler}
-  }
-};
 // On select of laser item
-void backHandler(void){
+void backHandler(KEY_VALUES selectedKey){
    CLOSE_MENU();
 }
+ITEM backItem = {ICON_BACK, LABEL_BACK, backHandler};
 
 // On select of laser item
-void emptyHandler(void){
+void emptyHandler(KEY_VALUES selectedKey){
 }
 void initDefaultMenu(MENUITEMS *menuItems, int32_t title, bool backButton) {
   LABEL titleLabel = {.index = title};
